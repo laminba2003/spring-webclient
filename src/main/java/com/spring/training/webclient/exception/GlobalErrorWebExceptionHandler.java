@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.server.*;
 import reactor.core.publisher.Mono;
+
 import java.util.Map;
 
 @Component
@@ -26,13 +27,11 @@ public class GlobalErrorWebExceptionHandler extends AbstractErrorWebExceptionHan
 
     @Override
     protected RouterFunction<ServerResponse> getRoutingFunction(ErrorAttributes errorAttributes) {
-        return RouterFunctions.route(
-                RequestPredicates.all(), this::renderErrorResponse);
+        return RouterFunctions.route(RequestPredicates.all(), this::renderErrorResponse);
     }
 
     private Mono<ServerResponse> renderErrorResponse(ServerRequest request) {
-        Map<String, Object> errorPropertiesMap = getErrorAttributes(request,
-                ErrorAttributeOptions.defaults());
+        Map<String, Object> errorPropertiesMap = getErrorAttributes(request, ErrorAttributeOptions.defaults());
         return ServerResponse.status(HttpStatus.BAD_REQUEST)
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(BodyInserters.fromValue(errorPropertiesMap));
