@@ -28,10 +28,18 @@ We can use the builder to customize the client behavior. Another option is to cr
 ```java
 @Bean
 public WebClient webClient() {
+    HttpClient httpClient = HttpClient.create()
+                    .doOnConnected(connection ->  connection
+                    .addHandlerLast(new ReadTimeoutHandler(10))
+                    .addHandlerLast(new WriteTimeoutHandler(10)));
+    
+    ClientHttpConnector connector = new ReactorClientHttpConnector(httpClient);
+    
     return WebClient.builder()
-        .baseUrl("https://reqres.in/api")
-        .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-        .build();
+            .baseUrl("https://reqres.in/api")
+            .clientConnector(connector)
+            .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+            .build();
 }
 ```
 
