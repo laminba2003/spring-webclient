@@ -1,5 +1,7 @@
-package com.spring.training.webclient.config;
+package com.spring.training.config;
 
+import com.spring.training.client.CountryClient;
+import com.spring.training.client.PersonClient;
 import io.netty.handler.timeout.ReadTimeoutHandler;
 import io.netty.handler.timeout.WriteTimeoutHandler;
 import org.springframework.boot.autoconfigure.web.WebProperties;
@@ -29,6 +31,16 @@ public class ApplicationConfig {
                 .clientConnector(connector)
                 .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .build();
+    }
+
+    @Bean
+    public PersonClient personClient(WebClient client) {
+        return new PersonClient(client);
+    }
+
+    @Bean
+    public CountryClient countryClient(WebClient client) {
+        return new CountryClient(client);
     }
 
     @Bean

@@ -1,4 +1,4 @@
-package com.spring.training.webclient.exception;
+package com.spring.training.exception;
 
 import org.springframework.boot.autoconfigure.web.WebProperties;
 import org.springframework.boot.autoconfigure.web.reactive.error.AbstractErrorWebExceptionHandler;

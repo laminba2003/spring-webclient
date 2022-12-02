@@ -1,4 +1,4 @@
-package com.spring.training.webclient.exception;
+package com.spring.training.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

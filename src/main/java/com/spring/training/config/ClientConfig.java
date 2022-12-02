@@ -1,4 +1,4 @@
-package com.spring.training.webclient.config;
+package com.spring.training.config;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

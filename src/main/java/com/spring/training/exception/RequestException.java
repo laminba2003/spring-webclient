@@ -1,4 +1,4 @@
-package com.spring.training.webclient.exception;
+package com.spring.training.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

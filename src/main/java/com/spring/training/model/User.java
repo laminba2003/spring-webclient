@@ -1,4 +1,4 @@
-package com.spring.training.webclient.model;
+package com.spring.training.model;
 
 import lombok.Data;
 

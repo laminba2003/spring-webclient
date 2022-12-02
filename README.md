@@ -49,8 +49,8 @@ We can use retrieve() and then bodyToFlux() and bodyToMono() method in case we a
 We can use the exhange() method in case we need more details from response.
 
 ```java
-return client.get().uri("/users/{id}", id)
-       .retrieve()
-       .onStatus(HttpStatus::is4xxClientError, response -> Mono.error(new EntityNotFoundException(id)))
-       .bodyToMono(User.class);
+return client.get().uri("/persons/{id}", id)
+                   .retrieve()
+                   .onStatus(HttpStatus::is4xxClientError, response -> Mono.error(new EntityNotFoundException("person not found with id : " + id)))
+                   .bodyToMono(Person.class);
 ```
