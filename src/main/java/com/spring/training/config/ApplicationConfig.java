@@ -5,6 +5,7 @@ import com.spring.training.client.PersonClient;
 import io.netty.handler.timeout.ReadTimeoutHandler;
 import io.netty.handler.timeout.WriteTimeoutHandler;
 import org.springframework.boot.autoconfigure.web.WebProperties;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
@@ -48,4 +49,9 @@ public class ApplicationConfig {
         return new WebProperties.Resources();
     }
 
+    @Bean
+    @ConfigurationProperties(prefix = "remote.services")
+    public ClientConfig clientConfig() {
+        return new ClientConfig();
+    }
 }
