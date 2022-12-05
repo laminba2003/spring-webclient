@@ -26,21 +26,35 @@ The WebClient is part of spring-webflux module and we will add it as required de
 We can use the builder to customize the client behavior. Another option is to create the WebClient by using WebClient.create() and configure it accordingly.
 
 ```java
-@Bean
-public WebClient webClient() {
-    HttpClient httpClient = HttpClient.create()
-                    .doOnConnected(connection ->  connection
-                    .addHandlerLast(new ReadTimeoutHandler(10))
-                    .addHandlerLast(new WriteTimeoutHandler(10)));
-    
-    ClientHttpConnector connector = new ReactorClientHttpConnector(httpClient);
-    
-    return WebClient.builder()
-            .baseUrl("https://reqres.in/api")
-            .clientConnector(connector)
-            .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-            .build();
-}
+    @Bean
+    public WebClient webClient(ClientConfig config) {
+        HttpClient httpClient = HttpClient.create()
+                .doOnConnected(connection ->  connection
+                .addHandlerLast(new ReadTimeoutHandler(10))
+                .addHandlerLast(new WriteTimeoutHandler(10)));
+
+        ClientHttpConnector connector = new ReactorClientHttpConnector(httpClient);
+
+        return WebClient.builder()
+                .baseUrl(config.getUrl())
+                .clientConnector(connector)
+                .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .build();
+    }
+
+    @Bean
+    @ConfigurationProperties(prefix = "remote.services")
+    public ClientConfig clientConfig() {
+        return new ClientConfig();
+    }
+```
+
+```yaml
+server:
+  port: 9091
+remote:
+  services:
+    url: "http://localhost:9090"
 ```
 
 ## Sending Request
