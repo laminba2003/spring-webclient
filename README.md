@@ -60,7 +60,7 @@ remote:
 ## Sending Request
 
 We can use retrieve() and then bodyToFlux() and bodyToMono() method in case we are only interested in the API response. 
-We can use the exhange() method in case we need more details from response.
+We can use the exchange() method in case we need more details from response.
 
 ```java
 return client.get().uri("/persons/{id}", id)
